@@ -1,0 +1,5 @@
+__pycache__
+TEMPLATES_BACKUP
+.env
+Spacex
+db.sqlite3
