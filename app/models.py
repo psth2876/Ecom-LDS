@@ -1,5 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from .utils import generate_new_slug 
+from django.urls import reverse
 
 
 # Create your models here.
@@ -101,6 +103,7 @@ class Section(models.Model):
 
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
+    slug = models.SlugField(verbose_name="post slug",unique=True,null=True,blank=True,editable=False)
     price = models.IntegerField()
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = RichTextField()
@@ -112,12 +115,19 @@ class Product(models.Model):
     image_url = models.CharField(max_length=200,null=True)
     section = models.ForeignKey(Section, on_delete=models.DO_NOTHING)
     tags = models.CharField(max_length=100)
-    model_Name = models.CharField(max_length=100)
+    sku = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.product_name
+
+    def save(self,*args, **kwargs):
+        self.slug = generate_new_slug(self.__class__,self.product_name)
+        return super().save(*args, **kwargs)
+
+    # def get_absolute_url(self):
+    #     return reverse('product_details',kwargs={'slug':self.slug}) 
 
     class Meta:
         verbose_name = 'Product'

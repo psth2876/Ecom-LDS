@@ -12,8 +12,8 @@ class Additional_InfoInline(admin.TabularInline):
 
 class Product_Admin(admin.ModelAdmin):
     inlines = (Product_ImagesInline, Additional_InfoInline)
-    list_display = ('product_name', 'price', 'categories','quantity', 'availability', 'section', 'model_Name')
-    list_editable = ('price', 'categories', 'quantity', 'availability', 'section', 'model_Name')
+    list_display = ('product_name', 'price', 'categories','quantity', 'availability', 'section', 'sku')
+    list_editable = ('price', 'categories', 'quantity', 'availability', 'section', 'sku')
 
 # Register your models here.
 admin.site.register(Slider)

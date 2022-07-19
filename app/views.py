@@ -17,3 +17,10 @@ def index(request):
 
     }
     return render(request, 'index.html',context)
+
+def product_details(request, slug):
+    product = Product.objects.get(slug=slug)
+    context = {
+        'product':product
+    }
+    return render(request, 'product_details.html',context)
